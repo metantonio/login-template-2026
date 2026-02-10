@@ -51,6 +51,13 @@ El backend utiliza un ambiente virtual para gestionar las dependencias de forma 
     ```
     El servidor estará disponible en `http://localhost:8000`.
 
+7.  **Configura el primer usuario como administrador:**
+    Después de registrar tu primer usuario, ejecútalo para promoverlo a admin:
+    ```bash
+    python make_admin.py
+    ```
+    Este script convierte automáticamente al usuario con ID 1 en administrador, permitiéndole acceder al panel de admin y gestionar roles de otros usuarios.
+
 ---
 
 ## 💻 Configuración del Frontend (React + Vite)
