@@ -3,19 +3,20 @@ from sqlalchemy.orm import Session
 import database, auth_utils
 from schemas import pydantic as schemas
 from schemas import models
+from dependencies import get_db, get_current_user
 
 router = APIRouter(
     prefix="",
     tags=["auth"],
 )
 
-# Dependency to get DB session
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+@router.get("/me", response_model=schemas.UserResponse)
+def get_current_user_profile(current_user: models.User = Depends(get_current_user)):
+    """
+    Get the current authenticated user's profile.
+    Requires valid JWT token in Authorization header.
+    """
+    return current_user
 
 @router.post("/signup", response_model=schemas.UserWithToken)
 def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
