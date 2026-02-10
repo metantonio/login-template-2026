@@ -15,6 +15,14 @@ export const authService = {
         return response.data;
     },
 
+    googleLogin: async (googleToken) => {
+        const response = await api.post('/auth/google', { token: googleToken });
+        if (response.data.token?.access_token) {
+            localStorage.setItem('token', response.data.token.access_token);
+        }
+        return response.data;
+    },
+
     signup: async (userData) => {
         const response = await api.post('/signup', userData);
         if (response.data.token?.access_token) {

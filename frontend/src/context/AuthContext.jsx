@@ -38,6 +38,13 @@ export const AuthProvider = ({ children }) => {
         return data;
     };
 
+    const googleLogin = async (googleToken) => {
+        const data = await authService.googleLogin(googleToken);
+        setToken(data.token.access_token);
+        await fetchProfile();
+        return data;
+    };
+
     const signup = async (userData) => {
         const data = await authService.signup(userData);
         if (data.token?.access_token) {
@@ -58,7 +65,7 @@ export const AuthProvider = ({ children }) => {
     const isAdmin = user?.role === 'admin';
 
     return (
-        <AuthContext.Provider value={{ user, token, loading, login, signup, logout, isAdmin }}>
+        <AuthContext.Provider value={{ user, token, loading, login, googleLogin, signup, logout, isAdmin }}>
             {children}
         </AuthContext.Provider>
     );

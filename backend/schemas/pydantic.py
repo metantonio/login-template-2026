@@ -12,9 +12,14 @@ class UserLogin(BaseModel):
     username: str
     password: str
 
+class GoogleLoginRequest(BaseModel):
+    token: str
+
 class UserResponse(UserBase):
     id: int
     role: str
+    auth_provider: str
+    avatar_url: Optional[str] = None
 
     class Config:
         from_attributes = True
